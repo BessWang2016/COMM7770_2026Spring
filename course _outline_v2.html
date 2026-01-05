@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Outline</title>
+    
+    <!-- 1. Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Load React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- 3. Load Babel (to translate JSX to JS in the browser) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        /* Custom print styles */
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- ICON DEFINITIONS ---
+        const BookOpen = ({size=24, className=""}) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        );
+        const Users = ({size=24, className=""}) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        );
+        const Code = ({size=24, className=""}) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        );
+        const Mail = ({size=24, className=""}) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        );
+        const MessageCircle = ({size=24, className=""}) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        );
+        const FileText = ({size=24, className=""}) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+        );
+        const Download = ({size=24, className=""}) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+        );
+
+        // --- COURSE COMPONENT ---
+
+        const CourseOutline = () => {
+        const [activeTab, setActiveTab] = useState('schedule');
+
+        const scheduleData = [
+            {
+            week: 1,
+            date: 'Jan 12',
+            title: 'What is Data Visualization?',
+            content: [
+                'Warm-up & Introductions',
+                'Course Overview & Logistics',
+                'Defining Data Visualization',
+                'Introduction to Tools',
+                'Student work Critique',
+                'Professional work Showcase',
+            ],
+            activity: ['Meet the classmates', 'Understand goals'],
+            readings: [] 
+            },
+            {
+            week: 2,
+            date: 'Jan 19',
+            title: 'Introduction to Data Structures',
+            content: [
+                'Understanding Data',
+                'Structured Data Collection',
+                'Data Structures',
+                'Table Structures & Logic',
+                'Excel Basics Overview',
+            ],
+            activity: ['In-class Practice'],
+            readings: [
+                {
+                title: "Munzner, Ch 2: Visualization Analysis and Design",
+                link: "./readings/Week2_Munzner_Ch2.pdf"
+                }
+            ]
+            },
+            {
+            week: 3,
+            date: 'Jan 26',
+            title: 'Data Pre-processing (Excel + AI)',
+            content: [
+                'Data Cleaning & Organization',
+                'Excel Operations Quiz',
+                'AI Assistance: Using NLP to generate complex Excel formulas',
+                'Microsoft Copilot Introduction',
+            ],
+            activity: ['In-class Practice', 'Grouping'],
+            readings: [
+                {
+                title: "Kirk, Ch 4: Work with Data",
+                link: "./readings/Week3_Kirk_Ch4.pdf"
+                }
+            ]
+            },
+            {
+            week: 4,
+            date: 'Feb 2',
+            title: 'Data Analysis & Pivot Tables',
+            content: [
+                'Data Grouping & Aggregation',
+                'Case Study',
+                'Excel Data Joins & Pivot Tables',
+                'Data Cleaning with python',
+            ],
+            activity: ['Reading Quiz', 'In-class Practice'],
+            readings: [
+                {
+                title: "Kirk, Ch 5: Editorial Thinking",
+                link: "./readings/Week4_Kirk_Ch5.pdf"
+                }
+            ]
+            },
+            {
+            week: 5,
+            date: 'Feb 9',
+            title: 'Visualization Foundations & Templates',
+            content: [
+                'Principles of Visualization',
+                'Gestalt Principles & Application',
+                'Rapid Charting with Templates',
+                'Flourish Basic Charts'
+            ],
+            activity: ['In-class Practice'],
+            readings: [
+                {
+                title: "Kirk, Ch 6: Data Representation",
+                link: "./readings/Week5_7_Kirk_Ch6.pdf"
+                }
+            ]
+            },
+            // Feb 16 Skipped
+            {
+            week: 6,
+            date: 'Feb 23',
+            title: 'Exploring Visual Analysis: Tableau',
+            content: [
+                'Introduction to Tableau',
+                'Basic Charts & Case Analysis'
+            ],
+            activity: ['In-class Practice'],
+            readings: [
+                {
+                title: "Kirk, Ch 6: Data Representation (Cont.)",
+                link: "./readings/Week5_7_Kirk_Ch6.pdf"
+                }
+            ]
+            },
+            {
+            week: 7,
+            date: 'Mar 2',
+            title: 'Advanced Data Prep (Prep Builder)',
+            content: [
+                'Using Prep Builder',
+                'Complex Data Cleaning',
+                'Data Unions & Joins'
+            ],
+            activity: ['In-class Practice'],
+            readings: [
+                {
+                title: "Kirk, Ch 6: Data Representation (Cont.)",
+                link: "./readings/Week5_7_Kirk_Ch6.pdf"
+                }
+            ]
+            },
+            {
+            week: 8,
+            date: 'Mar 9',
+            title: 'AI-Driven Custom Visualization',
+            content: [
+                'Generating your first ECharts with AI',
+                'Prompt Engineering for Code'
+            ],
+            activity: ['Major Project Topic Proposal'],
+            readings: [
+                {
+                title: "Cairo, Ch 2: Visualization as a Technology",
+                link: "./readings/Week8_Cairo_Ch2.pdf"
+                }
+            ]
+            },
+            {
+            week: 9,
+            date: 'Mar 16',
+            title: 'Color, Storytelling, & Advanced Tableau',
+            content: [
+                'Tableau Statistics',
+                'Quantifying Color',
+                'Narrative Structures'
+            ],
+            activity: ['Major Project Report', 'Replication Group Presentation'],
+            readings: [
+                {
+                title: "Kirk, Ch 9: Color",
+                link: "./readings/Week9_Kirk_Ch9.pdf"
+                }
+            ]
+            },
+            {
+            week: 10,
+            date: 'Mar 23',
+            title: 'Maps & Interactive Tableau',
+            content: [
+                'Tableau Mapping',
+                'Tableau Interactivity vs Code Interactivity'
+            ],
+            activity: ['In-class Practice'],
+            readings: [
+                {
+                title: "Cairo, Ch 3: Art and Communication",
+                link: "./readings/Week10_Cairo_Ch3.pdf"
+                }
+            ]
+            },
+            {
+            week: 11,
+            date: 'Mar 30',
+            title: 'Layout Design & Dashboards',
+            content: [
+                'Layout Design Principles',
+                'Dashboard Workshop',
+                'Web Publishing'
+            ],
+            activity: ['Dashboard Critique'],
+            readings: [
+                {
+                title: "Kirk, Ch 10: Composition",
+                link: "./readings/Week11_Kirk_Ch10.pdf"
+                }
+            ]
+            },
+            // Apr 6 Skipped
+            {
+            week: 12,
+            date: 'Apr 13',
+            title: 'Comprehensive Project Demo',
+            content: [
+                'Integrating Elements',
+                'Final Polish Techniques',
+                'Q&A Session'
+            ],
+            activity: ['Project Demo'],
+            readings: []
+            },
+            {
+            week: 13,
+            date: 'Apr 20',
+            title: 'Final Presentations & Course Wrap-up',
+            content: [
+                'Group Final Presentations',
+                'Peer Review Session',
+                'Future Learning Paths in Data Viz'
+            ],
+            activity: ['Final Presentation'],
+            readings: []
+            }
+        ];
+
+        return (
+            <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
+            {/* Header */}
+            <header className="bg-teal-700 text-white py-12 px-4 shadow-lg">
+                <div className="max-w-5xl mx-auto">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                    <h1 className="text-4xl font-bold mb-2">COMM7770: Data Visualization</h1>
+                    <p className="text-teal-100 text-lg">Spring 2025 | Mondays | 18:30 - 21:20</p>
+                    </div>
+                    <div className="mt-4 md:mt-0 bg-teal-800 p-4 rounded-lg bg-opacity-50 backdrop-blur-sm">
+                    <div className="flex items-center gap-2 mb-2">
+                        <Mail size={18} />
+                        <span className="text-sm">kenbess2000@hkbu.edu.hk</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <MessageCircle size={18} />
+                        <span className="text-sm">WeChat: Bess-WY</span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </header>
+
+            {/* Navigation */}
+            <nav className="bg-white shadow sticky top-0 z-10 no-print">
+                <div className="max-w-5xl mx-auto px-4">
+                <div className="flex space-x-8 overflow-x-auto">
+                    {['intro', 'evaluation', 'schedule'].map((tab) => (
+                    <button
+                        key={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={`py-4 px-2 border-b-2 font-medium capitalize transition-colors ${
+                        activeTab === tab
+                            ? 'border-teal-600 text-teal-700'
+                            : 'border-transparent text-gray-500 hover:text-gray-700'
+                        }`}
+                    >
+                        {tab === 'intro' ? 'Course Intro' : tab}
+                    </button>
+                    ))}
+                </div>
+                </div>
+            </nav>
+
+            {/* Main Content */}
+            <main className="max-w-5xl mx-auto px-4 py-8">
+                
+                {/* INTRO TAB */}
+                {activeTab === 'intro' && (
+                <div className="space-y-12 animate-in fade-in duration-500">
+                    <section>
+                    <h2 className="text-3xl font-bold text-teal-800 mb-6 flex items-center gap-3">
+                        <BookOpen className="w-8 h-8" />
+                        Why Learn Data Visualization?
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-8 text-lg leading-relaxed text-gray-600">
+                        <p>
+                        Data visualization is becoming an essential skill for media professionals and beyond. 
+                        In the era of big data, information is voluminous, complex, and easily accessible, 
+                        profoundly impacting professional decision-making and daily life.
+                        </p>
+                        <p>
+                        However, many decision-makers and audiences lack the time or energy to analyze raw data. 
+                        Therefore, the ability to transform complex data into clear, understandable visual stories 
+                        to aid comprehension and decision-making is crucial. This is the domain this course explores.
+                        </p>
+                    </div>
+                    </section>
+
+                    <section className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <h2 className="text-3xl font-bold text-teal-800 mb-6 flex items-center gap-3">
+                        <Code className="w-8 h-8" />
+                        What Will You Learn?
+                    </h2>
+                    <ul className="space-y-4">
+                        <li className="flex gap-4">
+                        <span className="bg-teal-100 text-teal-800 font-bold py-1 px-3 rounded h-fit">1</span>
+                        <div>
+                            <strong className="block text-gray-900">Data Processing & Exploration</strong>
+                            <span className="text-gray-600">Using Excel as a foundation to learn the universal logic of data organization.</span>
+                        </div>
+                        </li>
+                        <li className="flex gap-4">
+                        <span className="bg-teal-100 text-teal-800 font-bold py-1 px-3 rounded h-fit">2</span>
+                        <div>
+                            <strong className="block text-gray-900">Rapid Visualization & Analysis</strong>
+                            <span className="text-gray-600">Mastering BI tools like Tableau for rapid data exploration, prototyping, and dashboard building.</span>
+                        </div>
+                        </li>
+                        <li className="flex gap-4">
+                        <span className="bg-teal-100 text-teal-800 font-bold py-1 px-3 rounded h-fit">3</span>
+                        <div>
+                            <strong className="block text-gray-900">AI Empowerment & Customization</strong>
+                            <span className="text-gray-600">Learning to use AI to boost efficiency in data processing and chart generation. We will touch upon Python/ECharts, focusing on driving AI to generate custom visual works rather than coding from scratch.</span>
+                        </div>
+                        </li>
+                    </ul>
+                    </section>
+
+                    <section>
+                    <h2 className="text-3xl font-bold text-teal-800 mb-8 text-center">Teaching Methods</h2>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {[
+                        { id: '01', title: 'Lecture / Practice', desc: 'Hands-on learning' },
+                        { id: '02', title: 'Imitation / Review', desc: 'Deconstructing existing works' },
+                        { id: '03', title: 'Project Driven', desc: 'Learning by creating' }
+                        ].map((item) => (
+                        <div key={item.id} className="bg-teal-600 text-white rounded-full aspect-square flex flex-col items-center justify-center shadow-lg transform hover:scale-105 transition-transform w-48 mx-auto">
+                            <span className="text-5xl font-serif italic opacity-50">{item.id}</span>
+                            <h3 className="text-xl font-bold mt-2">{item.title}</h3>
+                        </div>
+                        ))}
+                    </div>
+                    </section>
+                </div>
+                )}
+
+                {/* EVALUATION TAB */}
+                {activeTab === 'evaluation' && (
+                <div className="space-y-12 animate-in fade-in duration-500">
+                    
+                    {/* Summary Cards */}
+                    <div className="space-y-8">
+                        <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded">
+                        <h3 className="font-bold text-amber-800">Do I need a data background?</h3>
+                        <p className="text-amber-700">
+                            No. But you need to invest sufficient time and energy. The course content is rich, and some basic operations require self-study. If you cannot guarantee attendance and self-study time, please consider carefully.
+                        </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                        {/* Individual Assessment */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xl font-bold text-gray-800">Individual Continuous Assessment</h3>
+                            <span className="text-2xl font-black text-teal-600">40%</span>
+                            </div>
+                            <ul className="list-disc list-inside text-gray-600 space-y-2">
+                            <li><strong>Attendance & Participation:</strong> Active engagement in class.</li>
+                            <li><strong>In-class Exercises:</strong> Hands-on practice submitted during sessions.</li>
+                            <li><strong>Quizzes:</strong> Short assessments on reading materials and concepts.</li>
+                            </ul>
+                        </div>
+
+                        {/* Replication */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xl font-bold text-gray-800">Assignment 1: Replication</h3>
+                            <span className="text-2xl font-black text-teal-600">25%</span>
+                            </div>
+                            <p className="text-sm text-gray-500 mb-2">Group Presentation</p>
+                            <ul className="list-disc list-inside text-gray-600 space-y-2 text-sm">
+                            <li>Critique a professional visualization.</li>
+                            <li>Individually replicate charts.</li>
+                            <li>Present findings and methodology.</li>
+                            </ul>
+                        </div>
+
+                        {/* Final Project */}
+                        <div className="bg-red-50 p-6 rounded-xl shadow-sm border border-red-100 md:col-span-2">
+                            <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xl font-bold text-gray-800">Assignment 2: Final Group Project</h3>
+                            <span className="text-2xl font-black text-red-400">35%</span>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <p className="font-semibold mb-2">Team: 4-6 Members</p>
+                                <p className="text-gray-600 mb-4">
+                                Complete a data journalism story involving data collection, cleaning, visualization, and layout design.
+                                </p>
+                                <ul className="list-disc list-inside text-gray-600 space-y-2 text-sm">
+                                <li><strong>Proposal (10%):</strong> Theme and toolset.</li>
+                                <li><strong>Final Layout (25%):</strong> Complete data story.</li>
+                                </ul>
+                            </div>
+                            <div className="bg-white bg-opacity-60 p-4 rounded text-sm text-gray-500">
+                                <strong className="block mb-2 text-gray-700">Peer Evaluation</strong>
+                                If your total peer evaluation score is below 30%, your group grade will be weighted accordingly.
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    {/* Detailed Assignment Specs */}
+                    <div className="border-t-2 border-gray-200 pt-10">
+                        <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Detailed Assignment Specifications</h2>
+                        
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                            {/* Assignment 1 Detail */}
+                            <article className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 flex flex-col h-full">
+                                <div className="bg-blue-600 text-white p-6">
+                                    <div className="flex justify-between items-start">
+                                        <h2 className="text-2xl font-bold">Assignment 1: Visualization Replication & Critique</h2>
+                                        <span className="bg-blue-500 bg-opacity-50 px-3 py-1 rounded text-sm font-semibold">25% Grade</span>
+                                    </div>
+                                    <p className="mt-2 text-blue-100">Format: Group Presentation (20 mins + Q&A)</p>
+                                </div>
+
+                                <div className="p-8 flex-grow">
+                                    <div className="mb-6">
+                                        <h3 className="text-lg font-bold text-blue-800 border-b-2 border-blue-100 pb-1 mb-3">1. Objective</h3>
+                                        <p className="text-sm text-gray-700">Reverse-engineer professional data journalism to understand the design decisions (spacing, color, typography) that distinguish professional work from amateur drafts.</p>
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <h3 className="text-lg font-bold text-blue-800 border-b-2 border-blue-100 pb-1 mb-3">2. Requirements</h3>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                                            <li><strong>Selection:</strong> Choose a complex visualization from a reputable source (e.g., SCMP, NYT, Economist). Avoid simple default charts.</li>
+                                            <li><strong>Roles:</strong> While the critique is a group effort, <strong>each student must individually replicate one specific chart</strong>.</li>
+                                            <li><strong>The Critique (Group):</strong> Analyze the original story. Discuss the narrative, data credibility, and why specific visual choices were made.</li>
+                                            <li><strong>The Replication (Individual):</strong> Aim for "pixel-perfect" fidelity. Match hex codes, fonts, grid lines, and tooltips exactly.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <h3 className="text-lg font-bold text-blue-800 border-b-2 border-blue-100 pb-1 mb-3">3. Deliverables</h3>
+                                        <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700">
+                                            <li><strong>Presentation Slides:</strong> Critique, side-by-side comparison (Original vs. Replication), and cleaning process notes.</li>
+                                            <li><strong>Source Files:</strong> Raw working files (Tableau .twbx, Illustrator .ai, Python/R scripts).</li>
+                                            <li><strong>Data:</strong> Direct links to original sources and cleaned datasets.</li>
+                                        </ol>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-lg font-bold text-blue-800 border-b-2 border-blue-100 pb-1 mb-3">4. Rubric (100 Points)</h3>
+                                        <div className="space-y-4">
+                                            <div className="bg-blue-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-blue-900 text-sm mb-1">
+                                                    <span>1. Visual Accuracy & Fidelity</span>
+                                                    <span>40 pts</span>
+                                                </div>
+                                                <p className="text-xs text-gray-700 italic mb-2">Does the replication look exactly like the original?</p>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (34-40):</span> Pixel-perfect. Colors, fonts, spacing match indistinguishably.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (24-33):</span> Strong resemblance. Structure correct, minor details differ.</li>
+                                                    <li><span class="font-semibold text-yellow-700">Fair (14-23):</span> Recognizable, but significant discrepancies exist.</li>
+                                                </ul>
+                                            </div>
+                                            <div className="bg-blue-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-blue-900 text-sm mb-1">
+                                                    <span>2. Data Processing</span>
+                                                    <span>25 pts</span>
+                                                </div>
+                                                <p className="text-xs text-gray-700 italic mb-2">Did they manipulate the data correctly?</p>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (21-25):</span> Elegant cleaning. Stats calculated correctly to match original.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (15-20):</span> Formatted correctly. Code works but may be verbose.</li>
+                                                </ul>
+                                            </div>
+                                            <div className="bg-blue-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-blue-900 text-sm mb-1">
+                                                    <span>3. Code Quality</span>
+                                                    <span>20 pts</span>
+                                                </div>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (17-20):</span> Modular, well-commented, follows best practices.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (12-16):</span> Organized. Comments explain main steps.</li>
+                                                </ul>
+                                            </div>
+                                            <div className="bg-blue-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-blue-900 text-sm mb-1">
+                                                    <span>4. Critique & Reflection</span>
+                                                    <span>15 pts</span>
+                                                </div>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (13-15):</span> Insightful analysis of design choices and limitations.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (9-12):</span> Correctly identifies principles. Accurate but lacks depth.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                            {/* Assignment 2 Detail */}
+                            <article className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 flex flex-col h-full">
+                                <div className="bg-emerald-600 text-white p-6">
+                                    <div className="flex justify-between items-start">
+                                        <h2 className="text-2xl font-bold">Assignment 2: Final Group Project</h2>
+                                        <span className="bg-emerald-500 bg-opacity-50 px-3 py-1 rounded text-sm font-semibold">Weight TBD</span>
+                                    </div>
+                                    <p className="mt-2 text-emerald-100">Format: Web Page + Presentation (10-15 mins)</p>
+                                </div>
+
+                                <div className="p-8 flex-grow">
+                                    <div className="mb-6">
+                                        <h3 className="text-lg font-bold text-emerald-800 border-b-2 border-emerald-100 pb-1 mb-3">1. Objective</h3>
+                                        <p className="text-sm text-gray-700">Produce a cohesive, compelling data story that meets professional data journalism standards and could be published in a major news outlet.</p>
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <h3 className="text-lg font-bold text-emerald-800 border-b-2 border-emerald-100 pb-1 mb-3">2. Requirements</h3>
+                                        <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                                            <li><strong>The Story:</strong> A fully developed web page weaving visualizations into a narrative.</li>
+                                            <li><strong>Methodology:</strong> A report ensuring reproducibility. Must include direct data sources, scraping scripts, and a data dictionary.</li>
+                                            <li><strong>The Pitch:</strong> A presentation summarizing the headline, evidence, and process to the "editors" (evaluators).</li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <h3 className="text-lg font-bold text-emerald-800 border-b-2 border-emerald-100 pb-1 mb-3">3. Deliverables</h3>
+                                        <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700">
+                                            <li><strong>The Data Story:</strong> The final web page file.</li>
+                                            <li><strong>Methodology Report:</strong> Source attribution and data dictionary.</li>
+                                            <li><strong>Source Code & Assets:</strong> GitHub link or folder containing analysis scripts, front-end code, and cleaned data.</li>
+                                            <li><strong>Presentation:</strong> Slides covering the hook, strongest visuals, and challenges.</li>
+                                        </ol>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-lg font-bold text-emerald-800 border-b-2 border-emerald-100 pb-1 mb-3">4. Rubric (100 Points)</h3>
+                                        <div className="space-y-4">
+                                            <div className="bg-emerald-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-emerald-900 text-sm mb-1">
+                                                    <span>1. Data Analysis & Integrity</span>
+                                                    <span>30 pts</span>
+                                                </div>
+                                                <p className="text-xs text-gray-700 italic mb-2">Did they get the numbers right, and can we trust them?</p>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (25-30):</span> Impeccable sources. Transparent methodology. Flawless analysis.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (18-24):</span> Reliable sources. Methodology mostly clear. Solid analysis.</li>
+                                                </ul>
+                                            </div>
+                                            <div className="bg-emerald-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-emerald-900 text-sm mb-1">
+                                                    <span>2. Visualization & Design</span>
+                                                    <span>30 pts</span>
+                                                </div>
+                                                <p className="text-xs text-gray-700 italic mb-2">Do the charts tell the story effectively and beautifully?</p>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (25-30):</span> Publication-ready. Perfect chart choice, clean design.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (18-24):</span> Clear and accurate. Minor design issues (font size, default colors).</li>
+                                                </ul>
+                                            </div>
+                                            <div className="bg-emerald-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-emerald-900 text-sm mb-1">
+                                                    <span>3. Narrative & Journalism</span>
+                                                    <span>25 pts</span>
+                                                </div>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (21-25):</span> Strong hook. Text weaves seamlessly with data. Jargon-free.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (15-20):</span> Logical flow. Connection between text and charts exists.</li>
+                                                </ul>
+                                            </div>
+                                            <div className="bg-emerald-50 p-3 rounded-lg">
+                                                <div className="flex justify-between font-bold text-emerald-900 text-sm mb-1">
+                                                    <span>4. Technical Execution</span>
+                                                    <span>15 pts</span>
+                                                </div>
+                                                <ul className="text-xs space-y-1 text-gray-600">
+                                                    <li><span className="font-semibold text-green-700">Excellent (13-15):</span> Clean code. Bug-free product. Professional presentation.</li>
+                                                    <li><span class="font-semibold text-blue-700">Good (9-12):</span> Code works but messy. Minor layout glitches.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                        </div>
+                    </div>
+                </div>
+                )}
+
+                {/* SCHEDULE TAB */}
+                {activeTab === 'schedule' && (
+                <div className="space-y-6 animate-in fade-in duration-500">
+                    <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-gray-800">Weekly Schedule</h2>
+                    <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                        13 Weeks Total
+                    </div>
+                    </div>
+
+                    <div className="relative border-l-2 border-teal-200 ml-3 md:ml-6 space-y-8">
+                    {scheduleData.map((week, index) => (
+                        <div key={index} className="relative pl-8 md:pl-12">
+                        {/* Timeline Dot */}
+                        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-teal-500 border-4 border-white shadow-sm"></div>
+                        
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                            {/* Date Block */}
+                            <div className="md:w-32 flex-shrink-0">
+                            <span className="text-xs font-bold text-teal-600 tracking-wider uppercase">Week {week.week}</span>
+                            <div className="text-xl font-bold text-gray-800">{week.date}</div>
+                            </div>
+
+                            {/* Content Block */}
+                            <div className="flex-grow bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <h3 className="text-lg font-bold text-teal-800 mb-3">{week.title}</h3>
+                            
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">Topics</h4>
+                                <ul className="space-y-1">
+                                    {week.content.map((item, i) => (
+                                    <li key={i} className="text-gray-600 text-sm flex items-start gap-2">
+                                        <span className="mt-1.5 w-1 h-1 rounded-full bg-teal-400 flex-shrink-0"></span>
+                                        {item}
+                                    </li>
+                                    ))}
+                                </ul>
+                                </div>
+                                
+                                <div className="bg-gray-50 p-3 rounded h-fit">
+                                <h4 className="text-xs font-bold text-gray-400 uppercase mb-2">Activities / Tasks</h4>
+                                <ul className="space-y-1">
+                                    {week.activity.map((item, i) => (
+                                    <li key={i} className="text-gray-600 text-sm flex items-start gap-2">
+                                        <Users size={14} className="mt-0.5 text-teal-500" />
+                                        {item}
+                                    </li>
+                                    ))}
+                                </ul>
+                                </div>
+                            </div>
+
+                            {/* Required Readings Section */}
+                            {week.readings && week.readings.length > 0 && (
+                                <div className="mt-4 pt-3 border-t border-gray-100">
+                                <h4 className="text-xs font-bold text-teal-600 uppercase mb-2 flex items-center gap-1">
+                                    <BookOpen size={12} /> Required Reading
+                                </h4>
+                                <ul className="space-y-2">
+                                    {week.readings.map((reading, rIndex) => (
+                                    <li key={rIndex} className="group">
+                                        <a 
+                                        href={reading.link} 
+                                        className="text-sm text-gray-700 hover:text-teal-700 flex items-center gap-2 transition-colors p-2 rounded hover:bg-teal-50 border border-transparent hover:border-teal-100"
+                                        >
+                                        <FileText size={16} className="text-teal-500" />
+                                        <span className="flex-grow">{reading.title}</span>
+                                        <Download size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-teal-600" />
+                                        </a>
+                                    </li>
+                                    ))}
+                                </ul>
+                                </div>
+                            )}
+
+                            </div>
+                        </div>
+                        </div>
+                    ))}
+                    </div>
+                    
+                    <div className="mt-8 p-4 bg-gray-100 rounded text-center text-gray-500 text-sm">
+                    * Note: No classes on Feb 16 and Apr 6 due to holidays/breaks.
+                    </div>
+                </div>
+                )}
+
+            </main>
+            </div>
+        );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<CourseOutline />);
+    </script>
+</body>
+</html>
